@@ -3,6 +3,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class English extends Wordle {
+    public String setChosenWord;
 
     // variables
 

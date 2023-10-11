@@ -10,4 +10,6 @@ public class WordleTest {
         assertEquals("habia", game.removeAccents("había"));
         assertEquals("nandu", game.removeAccents("ñandu"));
     }
+
+
 }
