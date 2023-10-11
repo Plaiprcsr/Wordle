@@ -126,6 +126,71 @@ class MyProjTest {
         assertEquals(2519, dictionary.size()); // Replace with the actual dictionary size
     }
 
+    @Test
+    public void testPrintWinningMessage() {
+        English game = new English();
+        String userWord = "apple";
+        String chosenWord = "apple";
+
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+
+        game.printWinningMessage(userWord,chosenWord,game.youWonMessage);
+
+        System.setOut(System.out);
+
+        assertEquals("apple",userWord);
+        assertEquals("CONGRATULATIONS! YOU WON! :)",game.youWonMessage);
+
+        String expectedOutput = "Result: " + game.ANSI_GREEN_BACKGROUND + userWord.toUpperCase() + game.ANSI_RESET + "\n\n" + game.youWonMessage + "\n\n"+
+        "The word's definition: https://www.merriam-webster.com/dictionary/" + chosenWord + "\n";
+        assertEquals(expectedOutput, outContent.toString().replace("\r\n", "\n"));
+    }
+
+    @Test
+    public void testPrintLosingMessage() {
+        English game = new English();
+
+        String chosenWord = "apple";
+
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+
+        game.printLosingMessage(chosenWord,game.youLostMessage);
+
+        System.setOut(System.out);
+
+        assertEquals("YOU LOST :( THE WORD CHOSEN BY THE GAME IS: ",game.youLostMessage);
+
+        String expectedOutput = "\n" + game.youLostMessage + chosenWord.toUpperCase() + ".\n\n" +
+                "The word's definition: https://www.merriam-webster.com/dictionary/" + chosenWord + "\n";
+        assertEquals(expectedOutput, outContent.toString().replace("\r\n", "\n"));
+    }
+
+    @Test
+    public void testPrintingColouredAlphabet() {
+        English game = new English();
+
+        List<Character> greenLetters = new ArrayList<>();
+        List<Character> yellowLetters = new ArrayList<>();
+        List<Character> greyLetters = new ArrayList<>();
+        String userWord = "apple";
+        greenLetters.add(userWord.toUpperCase().charAt(0));
+        yellowLetters.add(userWord.toUpperCase().charAt(1));
+        greyLetters.add(userWord.toUpperCase().charAt(3));
+
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+
+        game.printingColouredAlphabet(greenLetters, yellowLetters, greyLetters);
+
+        System.setOut(System.out);
+
+        // Normalize line separators to LF
+        String expectedOutput = game.ANSI_GREEN_BACKGROUND + "A" + game.ANSI_RESET + " B C D E F G H I J K " +game.ANSI_GREY_BACKGROUND + "L" + game.ANSI_RESET + " M N O " +game.ANSI_YELLOW_BACKGROUND +"P" + game.ANSI_RESET + " Q R S T U V W X Y Z ";
+        assertEquals(expectedOutput, outContent.toString().replace("\r\n", "\n"));
+    }
+
 
 
 

@@ -94,6 +94,22 @@ public abstract class Wordle {
     // print definition
     public abstract void printDefinitionLink (String randomChosenWord);
 
+    public void printWinningMessage(String userWord, String chosenWord, String youWonMessage) {
+        System.out.print(result);
+        System.out.println(ANSI_GREEN_BACKGROUND + userWord.toUpperCase() + ANSI_RESET);
+        System.out.println();
+        System.out.println(youWonMessage);
+        System.out.println();
+        printDefinitionLink(chosenWord);
+    }
+    public void printLosingMessage(String chosenWord, String youLostMessage) {
+        System.out.println();
+        System.out.println(youLostMessage + chosenWord.toUpperCase() + ".");
+        System.out.println();
+        printDefinitionLink(chosenWord);
+    }
+
+
     public void loopThroughSixGuesses(List<String> wordList) {
 
         for (int j = 0; j < 6; j++) {
@@ -106,11 +122,7 @@ public abstract class Wordle {
 
             // check if the user won: the userWord is the same as chosenWord
             if (userWord.equals(chosenWordWithoutAccents)) {
-                System.out.println((result + ANSI_GREEN_BACKGROUND + userWord.toUpperCase() + ANSI_RESET));
-                System.out.println();
-                System.out.println(youWonMessage);
-                System.out.println();
-                printDefinitionLink(chosenWord);
+                printWinningMessage(userWord,chosenWord,youWonMessage);
                 break;
             } else {
 
@@ -162,10 +174,7 @@ public abstract class Wordle {
             // Losing statement
             System.out.println();
             if (j == 5) {
-                System.out.println();
-                System.out.println(youLostMessage + chosenWord.toUpperCase() + ".");
-                System.out.println();
-                printDefinitionLink(chosenWord);
+                printLosingMessage(chosenWord,youLostMessage);
 
             }
         }
