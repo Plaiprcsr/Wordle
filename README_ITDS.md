@@ -427,7 +427,7 @@ File: English.java, Spanish.java
 
 
 
-**5. ชื่อของ test case: testGetRandomWord**
+<h3>5. ชื่อของ test case: testGetRandomWord</h3>
 
 **จุดประสงค์ของ test case:** เพื่อตรวจสอบว่าคำศัพท์ที่ได้มาจาก `getRandomWord()` อยู่ใน `wordList` หรือไม่ ถ้าคำศัพท์ที่ได้มาอยู่ใน `wordList` ก็จะแสดงผล test ผ่าน (pass) ถ้าไม่อยู่ใน `wordList` ก็จะแสดงผล test ไม่ผ่าน (fail).
 
@@ -455,16 +455,16 @@ File: English.java, Spanish.java
 
 **Identify Values**
 
-| Characteristic               | B1  | B2                        |
-|-----------------------------|-----|---------------------------|
-| C1 = wordList is empty      | []  | ["apple", "banana", "cherry"] |
+| Characteristic               | B1  | B2                          |
+|-----------------------------|-----|-----------------------------|
+| C1 = wordList is empty      | []  | ["apple", "money", "cider"] |
 
 **Derive Test**
 
-| Test | wordList         | Expected result                               |
-|------|------------------|-----------------------------------------------|
-| T1   | []               | return null                                   |
-| T2   | ["apple", "cherry"] | randomly select and return a word from the wordList (e.g., "apple" or "cherry") |
+| Test | wordList           | Expected result                                                                |
+|------|--------------------|--------------------------------------------------------------------------------|
+| T1   | []                 | return null                                                                    |
+| T2   | ["apple", "cider"] | randomly select and return a word from the wordList (e.g., "apple" or "cider") |
 
 **Functionality-Based Characteristics**
 
@@ -494,11 +494,11 @@ File: English.java, Spanish.java
 
 **Identify Values**
 
-| Characteristic                     | B1                   | B2                            | B3                           |
-|-----------------------------------|----------------------|-------------------------------|------------------------------|
-| C1 = wordList is empty             | []                   | ["apple", "banana"]           |                              |
-| C2 = number of words in wordList   | []                   | ["apple"]                     | ["apple", "banana"]         |
-| C3 = wordList has duplicate words  | ["apple", "apple", "cherry"] | ["apple", "banana", "cherry"] |                              |
+| Characteristic                     | B1                          | B2                          | B3                 |
+|-----------------------------------|-----------------------------|-----------------------------|--------------------|
+| C1 = wordList is empty             | []                          | ["apple", "money"]          |                    |
+| C2 = number of words in wordList   | []                          | ["apple"]                   | ["apple", "money"] |
+| C3 = wordList has duplicate words  | ["apple", "apple", "cider"] | ["apple", "money", "cider"] |                    |
 
 
 **Combine partitions to define test requirements**
@@ -516,11 +516,544 @@ File: English.java, Spanish.java
 
 **Derive Test**
 
-| Test | wordList                       | Expected result                                 |
-|------|--------------------------------|-------------------------------------------------|
-| (True, 0, False)   | []                 | []                                              |
-| (False, >1, True)  | ["apple", "apple", "cherry"] | randomly select and return a word from the wordList (e.g., "apple" or "cherry") |
-| (False, 1, False)  | ["apple"]           | "apple"                                         |
-| (False, >1, False) | ["apple", "banana", "cherry"] | randomly select and return a word from the wordList (e.g., "apple" or "banana" or "cherry") |
+| Test | wordList                    | Expected result                                                                           |
+|------|-----------------------------|-------------------------------------------------------------------------------------------|
+| (True, 0, False)   | []                          | []                                                                                        |
+| (False, >1, True)  | ["apple", "apple", "cider"] | randomly select and return a word from the wordList (e.g., "apple" or "cider")            |
+| (False, 1, False)  | ["apple"]                   | "apple"                                                                                   |
+| (False, >1, False) | ["apple", "money", "cider"] | randomly select and return a word from the wordList (e.g., "apple" or "money" or "cider") |
 
 
+
+<h3>6. ชื่อของ test case: testPrintWinningMessage</h3>
+
+**จุดประสงค์ของ test case:** เพื่อยืนยันว่า method `testPrintWinningMessage` สามารถตรวจสอบ `printWinningMessage()` method ว่าสามารถใช้งานได้และมีการแสดงข้อความเเสดงผลว่าผู้เล่นนั้น ชนะการเล่นเกมครั้งนี้เเล้วพร้อมทั้งแสดง คำที่ถูกต้อง และ definition link เพื่อให้มั่นใจว่ามี game's feedback system functions ที่ถูกต้อง.
+
+**Interface-Based Characteristics:**
+
+1. **Identify testable functions:**
+    - `testWiningMessage()`
+
+2. **Identify parameters, return types, return values, and exceptional behavior:**
+    - **Parameters:**
+        - `userWord` (String)
+        - `chosenWord` (String)
+        - `youWonMessage` (String)
+    - **Return type:** String
+    - **Return value:** The printed message should contain: "CONGRATULATIONS! YOU WON! :)\n The word's definition: https://www.merriam-webster.com/dictionary/"
+    - **Exceptional behavior:** -
+
+3. **Model the input domain:**
+
+    - **Develop characteristics**
+        - `C1`: `userWord` is an empty string
+        - `C2`: `chosenWord` is an empty string
+        - `C3`: `youWinMessage` is empty
+
+**Partitioning Characteristics**
+
+| Characteristic               | B1    | B2    |
+|-----------------------------|-------|-------|
+| C1: userWord is empty       | True  | False |
+| C2: ChosenWord is empty     | True  | False |
+| C3: youWin Message is empty | True  | False |
+
+
+**Identify Values**
+
+| Characteristic               | B1   | B2                            |
+|-----------------------------|------|-------------------------------|
+| C1: userWord is empty       | ‘’   | ‘apple’                       |
+| C2: ChosenWord is empty     | ‘ ’  | ‘apple’                       |
+| C3: youWin Message is empty | ‘’   | ‘CONGRATULATIONS! YOU WON! :)’ |
+
+
+**Derive Test**
+
+| Test | userWord | ChosenWord | youWin Message | Expected value                                         |
+|------|----------|------------|----------------|-------------------------------------------------------|
+| T1   | ‘’       | ‘’         | ‘’             | The printed message should contain an empty string.   |
+| T2   | ‘’       | ‘’         | ‘CONGRATULATIONS! YOU WON! :)’ | The printed message should contain an empty string.   |
+| T3   | ‘’       | ‘apple’    |                | The printed message should contain an empty string.   |
+| T4   | ‘’       | ‘apple’    | ‘CONGRATULATIONS! YOU WON! :)’ | The printed message should contain an empty string.   |
+| T5   | ‘apple’  | ‘apple’    | ‘’             | The printed message should contain an empty string.   |
+| T6   | ‘apple’  | ‘’         | ‘’             | The printed message should contain an empty string.   |
+| T7   | ‘apple’  | ‘apple’    | ‘CONGRATULATIONS! YOU WON! :)’ | The printed message should contain "CONGRATULATIONS! YOU WON! :)\nThe word's definition: https://www.merriam-webster.com/dictionary/" |
+| T8   | ‘apple’  | ‘’         | ‘CONGRATULATIONS! YOU WON! :)’ | The printed message should contain an empty string.   |
+
+
+**Functionality-Based Characteristics:**
+
+1. **Identify testable functions:**
+    - `testWiningMessage()`
+
+2. **Identify parameters, return types, return values, and exceptional behavior:**
+    - **Parameters:**
+        - `userWord` (String)
+        - `chosenWord` (String)
+        - `youWonMessage` (String)
+    - **Return type:** String
+    - **Return value:** The printed message should contain "CONGRATULATIONS! YOU WON! :)\nThe word's definition: https://www.merriam-webster.com/dictionary/"
+
+3. **Model the input domain:**
+
+    - **Develop characteristics**
+        - `C1`: `userWord` is valid
+        - `C2`: `chosenWord` is in the list
+        - `C3`: `youWinMessage` is valid
+
+
+**Partitioning Characteristics**
+
+| Characteristic               | B1   | B2          | B3     |
+|-----------------------------|------|-------------|--------|
+| C1: userWord is valid       | True | False       |        |
+| C2: ChosenWord is in list   | Valid | Not valid | empty  |
+| C3: youWin Message is valid | True | False       |        |
+
+
+**Identify Values**
+
+| Characteristic               | B1   | B2                                  | B3                           |
+|-----------------------------|------|-------------------------------------|------------------------------|
+| C1: userWord is valid       | ‘’   | ‘’                                |                              |
+| C2: ChosenWord is in list   | ["apple", "water", "ready", "lemon", "grape"] | ‘cup’ | ‘’                         |
+| C3: youWin Message is valid | ‘’   | ‘CONGRATULATIONS! YOU WON! :)’     |                              |
+
+**Combine Partitions to define test requirements**
+- Assumption: Multiple Base Choice(MBCC)
+
+| Characteristic               | B1 | B2 | B3 |
+|-----------------------------|----|----|----|
+| C1: userWord is valid       | A  | B  |    |
+| C2: ChosenWord is in list   | x  | y  | z  |
+| C3: youWin Message is valid | 1  | 2  |    |
+
+**Test Requirements -- number of tests(upper bound)**
+- Base: A,x,1 / B,x,1
+  Number of tests: 2+(2*(2-2))+(2*(3-1))+(2*(2-1)) = 8 <br>
+  (A,x,1) , (A,y,1) , (A,z,1) , (A,x,2) , (B,y,1) , (B,x,1) , (B,z,1) , (B,x,2)
+
+
+**Derive Test**
+
+| Test | userWord                                    | ChosenWord | youWinMessage                | Expected values                            |
+|------|--------------------------------------------|------------|------------------------------|--------------------------------------------|
+| T1   | ["apple", "water", "ready", "lemon", "grape"] | ‘apple’    | ‘CONGRATULATIONS! YOU WON! :)’ | ‘CONGRATULATIONS! YOU WON! :)’               |
+| T2   | ["apple", "water", "ready", "lemon", "grape"] | ‘’         | ‘CONGRATULATIONS! YOU WON! :)’ | The printed message should contain an empty string. |
+| T3   | ‘["apple", "water", "ready", "lemon", "grape"] | ‘’         | ‘CONGRATULATIONS! YOU WON! :)’ | The printed message should contain an empty string. |
+| T4   | ["apple", "water", "ready", "lemon", "grape"] | ‘water’    | ‘’                           | Error exception                            |
+| T5   | ‘["apple", "water", "ready", "lemon", “sun”, "grape"] | ‘’         | ‘CONGRATULATIONS! YOU WON! :)’ | Error exception                            |
+| T6   | ‘["apple", "water", "ready", "lemon", “sun”, "grape"] | ‘ready’    | ‘CONGRATULATIONS! YOU WON! :)’ | Error exception                            |
+| T7   | ‘["apple", "water", "ready", "lemon", “sun”, "grape"] | ‘’         | ‘CONGRATULATIONS! YOU WON! :)’ | Error exception                            |
+| T8   | ‘["apple", "water", "ready", "lemon", “sun”, "grape"] | ‘lemon’    | ‘’                           | Error exception                            |
+
+
+<h3>7. ชื่อของ test case: testReadDictionary</h3>
+
+**จุดประสงค์ของ test case:** เพื่อทดสอบว่าสามารถเปิดและอ่านข้อมูลในไฟล์เพื่อสร้างรายการคำศัพท์จากข้อมูลนั้น เพื่อนำไปใช้ในเกมได้.
+
+**Interface-Based Characteristics:**
+
+File: Wordle.java
+
+1. Identify testable functions:
+    - `testReadDictionary()`
+
+2. Identify parameters, return types, return values, and exceptional behavior:
+    - Parameters: `fileName` (String)
+    - Return type: `List<String>`
+    - Return value: `wordList` เป็นรายการคำศัพท์
+
+**Exceptional Behavior:**
+If the method encounters an exception during the file reading process, it catches the exception and prints an error message.
+
+**Model the input domain:**
+
+Develop characteristics
+- C1 = File Existence
+
+**Partitioning Characteristics**
+
+| Characteristic | B1   | B2   |
+|----------------|------|------|
+| C1: File existence | True | False |
+
+
+**Identify Values**
+
+| Characteristic        | B1              | B2              |
+|-----------------------|-----------------|-----------------|
+| C1: File existence    | "Dictionary.txt" | "NonExistFile.txt" |
+
+
+**Combine partitions to define test requirements**
+- Assumption: Choose All Possible Combinations (ACoC)
+- Test Requirements -- number of tests (upper bound) = 2
+  (C1,B1) , (C1,B2)
+
+**Derive Test**
+
+| Test  | Filename            | Expected              |
+|-------|---------------------|-----------------------|
+| T1    | "Dictionary.txt"    | Return wordList       |
+| T2    | "NonExistFile.txt"  | WordList is empty     |
+
+### Functionality-Based Characteristics
+
+**File:** wordle.java
+
+1. **Identify testable functions:**
+    - `testReadDictionary()`
+
+2. **Identify parameters, return types, return values, and exceptional behavior:**
+    - **Parameters:** `fileName` (String)
+    - **Return type:** `List<String>`
+    - **Return value:** `wordList` เป็นคลังคำศัพท์
+
+**Exceptional Behavior:**
+If the method encounters an exception during the file reading process, it catches the exception and prints an error message.
+
+**Model the input domain:**
+
+**Develop characteristics**
+- C1 = Type of data in File
+
+
+**Identify Values**
+
+| Characteristic           | B1         | B2     | B3           |
+|--------------------------|------------|--------|--------------|
+| C1: Type of data in File | Valid data | Empty  | Invalid data |
+
+
+**Combine partitions to define test requirements**
+- Assumption: Choose All possible combination (ACoC)
+- Test Requirements -- number of tests (upper bound) = 3
+
+**Derive Test**
+
+
+| Test | Data in File                                    | Data type  | Expected                                 |
+|------|-------------------------------------------------|------------|------------------------------------------|
+| T1   | ["apple", "water", "ready", "lemon", "grape"]  | Valid      | Return WordList                         |
+| T2   | []                                              | Empty      | Return Empty WordList                   |
+| T3   | ["สวัสดี", "วันนี้", "วันดี", "ปีใหม่"] | Invalid    | Catches the exception and prints an error message |
+
+
+
+<h3>8. ชื่อของ test case :  testPrintDefinitionLink</h3>
+**จุดประสงค์ของ test case :** ทดสอบความถูกต้องของเมธอด printDefinitionLink ในคลาส English เมื่อมีการเรียกใช้งานด้วยคำศัพท์ "apple" โดย expected output ถ้ารูปแบบนี้ถูกต้อง คือเป็นไปตาม "The word's definition: https://www.merriam-webster.com/dictionary/apple"
+
+**Interface-Based Characteristics:**
+1. **Identify testable functions**
+- printDefinitionLink()
+
+2. **Identify parameters, return types, return values, and exceptional behavior**
+- Parameters:  ไม่มีพารามิเตอร์ที่ถูกส่งเข้าไปในเมธอด printDefinitionLink
+- Return type: เมธอด printDefinitionLink ไม่มีการส่งคืนค่า (void) คือไม่มีการส่งค่ากลับหลังจากการทำงาน
+- Return value: ไม่มีค่าที่ส่งกลับเนื่องจากเมธอดไม่มีการส่งคืนค่า
+- Exceptional behavior: This test does not expect any errors or exceptional behavior since it is a test for displaying the expected output of printing the definition link.
+
+3. **Model the input domain**
+- Develop characteristics
+  - C1 = Input เป็น String
+
+
+
+
+**Partitioning Characteristics**
+
+| Characteristic                 | B1   | B2   |
+| ------------------------------ | ---- | ---- |
+| C1: Input เป็น string - True  | True | False |
+
+**Identify Values**
+
+| Characteristic               | B1      | B2 |
+| ---------------------------- | ------- | --- |
+| C1: Input เป็น string -  | "apple" | 235 |
+
+**Combine partitions to define test requirements**
+- Assumption: choose Pairwise Coverage
+- Test Requirements -- number of tests (upper bound) = 2 <br>
+  (C1,B1) , (C1,B2)
+
+**Derive Test**
+
+| Test         | Word input  | Expected                      |
+| ------------ | ----------- | ------------------------------ |
+| T1:("apple", True)        | "apple" |  Can print definition of words |
+| T2:(235, False)         |  235   |  Can not print definition of words |
+
+
+**Functionality-Based Characteristics**
+
+1. **Identify testable functions**
+
+- The testable function is `printDefinitionLink()` in the English class.
+
+2. **Identify parameters, return types, return values, and exceptional behavior**
+
+- Parameters: The method takes one parameter, which is a String representing a word (e.g., "apple").
+- Return type: The method returns void, which means it doesn't return any value.
+- Return value: Not applicable in this case as the method doesn't return any value.
+- Exceptional behavior: This test case does not explicitly check for exceptional behavior or exceptions; it focuses on the output written to the console.
+
+3. **Model the input domain**
+
+**Develop characteristics**
+- C1 = ลักษณะของ input
+- C2 = Input สามารถสร้าง URL เพื่อเข้าถึงได้
+
+| Characteristic             | B1                  | B2            | B3                  | B4   |
+| ------------------------------  | ------------------- | ------------- |---------------------|------|
+| C1: ลักษณะของ input    | Have special character | Empty String | Normal Valid string | Null |
+| C2: Input สามารถสร้าง URL เพื่อเข้าถึงได้ | True              | False         | -                   | -    |
+
+
+**Combine partitions to define test requirements**
+
+**Partitioning เพื่อทำ Test Requirements**
+
+| Characteristic        | B1   | B2   | B3   | B4   |
+| -------------------------------  | ---- | ---- | ---- | ---- |
+| C1                   | A    | B    | C    | D    |
+| C2                   | x    | y    |      |      |
+ 
+
+**Assumption: choose Pairwise Coverage (PWC)**
+- Test Requirements -- number of tests (upper bound) = 4*2 = 8 <br>
+  (A,x) , (A,y) , (B,x) , (B,y) , (C,x) , (C,y) , (D,x) , (D,y)
+
+**Derive Test**
+
+| Test  | Word input | Link                                       | Expected                         |
+|-------|------------|--------------------------------------------|----------------------------------|
+| T1    | “@$%#”     | https://www.merriam-webster.com/dictionary/@$%# | Can not access link               |
+| T2    | “@$%#”     | https://www.merriam-webster.com/dictionary/!apple | Can access link                   |
+| T3    | “ ”        | https://www.merriam-webster.com/dictionary/ | Can not print definition of words |
+| T4    | “ ”        | https://www.merriam-webster.com/dictionary/ | Can not print definition of words |
+| T5    | “apple”    | https://www.merriam-webster.com/dictionary/apple | Can print definition of words    |
+| T6    | “tesss”    | https://www.merriam-webster.com/dictionary/tesss | Can not print definition of words |
+| T7    | Null       | https://www.merriam-webster.com/dictionary/ | Can not print definition of words |
+| T8    | Null       | https://www.merriam-webster.com/dictionary/ | Can not print definition of words |
+
+
+<h3>9. ชื่อของ test case: testPrintingColouredAlphabet</h3>
+<b>จุดประสงค์ของ test case: เพื่อยืนยันว่า method testPrintingColouredAlphabet สามารถทำงานโดยการใช้สีเขียว เหลือง และ เทา ได้ถูกต้อง</b>
+
+**Interface-Based Characteristics:**
+
+1. **Identify testable functions:**
+    - `testPrintingColouredAlphabet`
+
+2. **Identify parameters, return types, return values, and exceptional behavior:**
+    - **Parameters:** `greenLetters`, `yellowLetters`, `greyLetters` (List<Character)
+    - **Return type:** String
+    - **Return value:** String ‘A-Z’ with color green (correct letter & index), yellow (correct only letter), gray (not correct both)
+
+3. **Exceptional Behavior:**
+    - If any of the input lists (`greenLetters`, `yellowLetters`, or `greyLetters`) contains characters that are not in the range 'A' to 'Z', the method may still attempt to print them. This could result in unexpected behavior or exceptions if the input is not properly validated.
+
+4. **Model the input domain:**
+
+   **Develop characteristics**
+    - `C1 = greenLetters` is empty
+    - `C2 = yellowLetters` is empty
+    - `C3 = greyLetters` is empty
+
+**Partitioning Characteristics**
+
+| Characteristics              | B1    | B2    |
+|------------------------------| ----- | ----- |
+| C1: `greenLetters` is empty  | True  | False |
+| C2: `yellowLetters` is empty | True  | False |
+| C3: `greyLetters` is empty   | True  | False |
+
+**Identify Values**
+
+| Characteristics              | B1       | B2         |
+|------------------------------| -------- | ---------- |
+| C1: `greenLetters` is empty  | []       | ['A', 'B'] |
+| C2: `yellowLetters` is empty | []       | ['C', 'D'] |
+| C3: `greyLetters` is empty   | []       | ['E', 'F'] |
+
+**Combine partitions to define test requirements**
+- Assumption: choose Each choice Coverage 
+- Test Requirements -- number of tests = 2
+  (A, x, 1) , (B, y, 2)
+
+**Partitioning เพื่อสร้าง Test Requirements (ECC)**
+
+
+| Characteristics              | B1  | B2  |
+|------------------------------|-----|-----|
+| C1: `greenLetters` is empty  | A   | B   |
+| C2: `yellowLetters` is empty | x   | y   |
+| C3: `greyLetters` is empty   | 1   | 2   |
+
+**Derive Test**
+
+| Test             | greenLetters   | yellowLetters    | greyLetters | Expected Output |
+|------------------|----------------|------------------|-------------|-----------------|
+| T1: (True, True, True)  | []             | []               | []          | No output       |
+| T2: (False, False, False)  | ['A', 'B']     | ['C', 'D']       | ['F']       | "A B C D E F G H I J K L M N O P Q R S T U V W X Y Z" with color codes: A B (green), C D (yellow), F (grey) |
+
+
+**Functionality-Based Characteristics:**
+
+1. **Identify testable functions:**
+    - `testPrintingColouredAlphabet`
+
+2. **Identify parameters, return types, return values, and exceptional behavior:**
+    - **Parameters:** `greenLetters`, `yellowLetters`, `greyLetters` (List<Character>)
+    - **Return type:** String
+    - **Return value:* String 'A-Z' with color green (correct letter & index), yellow (correct only letter), gray (not correct both)
+
+3. **Exceptional Behavior:**
+    - If any of the input lists (`greenLetters`, `yellowLetters`, or `greyLetters`) contains characters that are not in the range 'A' to 'Z', the method may still attempt to print them. This could result in unexpected behavior or exceptions if the input is not properly validated.
+
+4. **Model the input domain:**
+    - **Develop characteristics:**
+        - `C1`: Number of `greenLetters`
+        - `C2`: Number of `yellowLetters`
+        - `C3`: Number of `greyLetters`
+        - `C4`: `userWord` is not empty
+
+**Partitioning Characteristics**
+
+| Characteristics             | B1   | B2   | B3   |
+|-----------------------------|------|------|------|
+| C1: number of greenLetters  | 0    | 1    | >1  |
+| C2: number of yellowLetters | 0    | 1    | >1  |
+| C3: number of grayLetters   | 0    | 1    | >1  |
+| C4: userWord is not empty   | True | False|      |
+
+**Identify Values**
+
+| Characteristics             | B1                                                      | B2                                                                                    | B3                                                                                                                      |
+|-----------------------------|---------------------------------------------------------|---------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------|
+| C1: number of greenLetters  | A B C D E F G H I J K L M N O P Q R S T U V W X Y Z  | A B <span style="color:green">C</span> D E F G H I J K L M N O P Q R S T U V W X Y Z  | A B <span style="color:green">C</span> <span style="color:green">D</span> E F G H I J K L M N O P Q R S T U V W X Y Z   |
+| C2: number of yellowLetters | A B C D E F G H I J K L M N O P Q R S T U V W X Y Z  | A B <span style="color:yellow">C</span> D E F G H I J K L M N O P Q R S T U V W X Y Z | A B <span style="color:yellow">C</span> <span style="color:yellow">D</span> E F G H I J K L M N O P Q R S T U V W X Y Z |
+| C3: number of grayLetters   | A B C D E F G H I J K L M N O P Q R S T U V W X Y Z  | A B <span style="color:grey">C</span> D E F G H I J K L M N O P Q R S T U V W X Y Z   | A B <span style="color:grey">C</span> <span style="color:grey">D</span> E F G H I J K L M N O P Q R S T U V W X Y Z     |
+| C4: userWord is not empty   | "apple"                                                | ""                                                                                    |                                                                                                                         |
+
+**Combine partitions to define test requirements**
+- Assumption: choose Each choice Coverage
+- Test Requirements -- number of tests = 3 <br>
+  (N, A, x, 1), (M, B, z, 2), (M, C, y, 3) <br>
+  (False, 0, 0, 0), (True, 1, >1, 1), (True, >1,1, >1)
+
+
+
+**Partitioning เพื่อสร้าง Test Requirements (ECC)**
+
+
+| Characteristics             | B1  | B2  | B3  |
+|-----------------------------|-----|-----|-----|
+| C4 = userWord is not empty  | M   | N   |     |
+| C1 = number of greenLetters | A   | B   | C   |
+| C1 = number of greenLetters | x   | y   | z   |
+| C1 = number of greenLetters | 1   | 2   | 3   |
+
+
+| Test | userWord | greenLetters                                                                                                          | yellowLetters                                                                                                                                             | greyLetters                                                                         | Expected result                                                                                                                                                                                                                                                                                                                                                                      |
+| ---- | -------- |-----------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| T1   | " "      | A B C D E F G H I J K L M N O P Q R S T U V W X Y Z                                                                   | A B C D E F G H I J K L M N O P Q R S T U V W X Y Z                                                                                                       | A B C D E F G H I J K L M N O P Q R S T U V W X Y Z                                 | The word does not have 5 letters. Please, submit a new 5-letter word.                                                                                                                                                                                                                                                                                                                |
+| T2   | "Cider"  | A B C D E F G H I J K L M N O P Q <span style="color:green">R</span> S T U V W X Y Z                                  | A B <span style="color:yellow">C</span> <span style="color:yellow">D</span> <span style="color:yellow">E</span> F G H I J K L M N O P Q R S T U V W X Y Z | A B C D E F G H <span style="color:grey">I</span> J K L M N O P Q R S T U V W X Y Z | Result: <span style="color:yellow">C</span><span style="color:grey">I</span><span style="color:yellow">D</span><span style="color:yellow">E</span><span style="color:green">R</span> <br> A B <span style="color:yellow">C</span> <span style="color:yellow">D</span> <span style="color:yellow">E</span> F G H I J K L M N O P Q <span style="color:green">R</span> S T U V W X Y Z |
+| T3   | "Apple"  | <span style="color:green">A</span> B C D E F G H I J K <span style="color:green">L</span> M N O P Q R S T U V W X Y Z | A B C D <span style="color:yellow">E</span> F G H I J K L M N O P Q R S T U V W X Y Z                                                                     | A B C D E F G H I J K L M N O <span style="color:grey">P</span> Q R S T U V W X Y Z | Result: <span style="color:green">A</span><span style="color:grey">P</span><span style="color:grey">P</span><span style="color:green">L</span><span style="color:yellow">E</span> <br> <span style="color:green">A</span> B C D <span style="color:yellow">E</span> F G H I J K <span style="color:green">L</span> M N O <span style="color:grey">P</span> Q R S T U V W X Y Z                                       |
+
+
+<h3>ชื่อของ test case: testPrintFirstWordRequest</h3>
+**จุดประสงค์ของ test case:** เป็นการทดสอบการทำงานของฟังก์ชัน printFirstWordRequest ของการสร้างข้อความและการพิมพ์ออกมา ซึ่งถ้าฟังก์ชันทำงานถูกต้อง จะพิมพ์ข้อความ "Please write down your first guess:" และ test case จะผ่าน แต่ถ้ามีข้อผิดพลาดในการสร้างหรือพิมพ์ข้อความ test case จะล้มเหลวและต้องตรวจสอบแก้ไขให้ถูกต้องก่อนที่จะผ่านการทดสอบ
+
+**Interface-Based Characteristics:**
+
+File: English.java, Spanish.java
+
+1. **Identify testable functions:**
+    - `testPrintFirstWordRequest()`
+
+2. **Identify parameters, return types, return values, and exceptional behavior:**
+    - Parameters: None
+    - Return type: None
+    - Return value: None
+
+**Model the input domain:**
+
+Develop characteristics
+- `C1`: Message is empty
+
+**Partitioning Characteristics**
+
+| Characteristic         | B1    | B2    |
+| ----------------------- | ----- | ----- |
+| C1: Message is empty   | True  | False |
+
+**Identify Values**
+
+| Characteristic   | B1    | B2    |
+| ---------------- | ----- | ----- |
+| C1               | “ ”   | “Hi”  |
+
+**Combine partitions to define test requirements**
+- Assumption: choose Pairwise coverage (PWC)
+  - Test requirements -- number of tests (upper bound) = 2 <br>
+(C1, B1 ) (C2, B2)
+
+**Derive Test**
+
+| Test Case | Message | Expected Result |
+| --------- | ------- | ---------------- |
+| T1        | “ ”     | “ ”              |
+| T2        | “Hi”   | “Hi”             |
+
+**Functionality-Based Characteristics**
+
+1. **Identify testable functions:**
+- `testPrintFirstWordRequest`
+
+**Tested Function:**
+- `askForFirstGuess()` ใน `English` class
+
+2. **Identify parameters, return types, return values, and exceptional behavior:**
+- **Parameters:** None
+- **Return type:** None
+- **Return value:** None
+
+3. **Model the Input Domain:**
+
+   - C1 = Print Message contains "Please write down your first guess."
+   - C2 = `askForFirstGuess()` can be called.
+
+**Partitioning Characteristics**
+
+| Characteristic                                 | B1   | B2   |
+| -------------------------------------------- | ---- | ---- |
+| C1 = Print Message contains "Please write down your first guess" | True | False |
+| C2 = askForFirstGuess() can call back         | True | False |
+
+**Identify Values**
+
+| Characteristic                                     | B1   | B2    |
+| -------------------------------------------------- | ---- |-------|
+| C1 = Print Message contains | "Please write down your first guess"  | []    |
+| C2 = askForFirstGuess() can call back                | True | False |
+
+**Combine partitions to define test requirements**
+- Assumption: choose Pairwise coverage (PWC)
+  - Test requirements -- number of tests (upper bound) = 2*2 = 4 <br>
+(C1, B1) (C2, B2) (C2, B1) (C2, B2)
+
+**Derive Test**
+
+| Test Case                              | Actual                                 | Expected Result                        |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| T1                                     | "Please write down your first guess:" | "Please write down your first guess:" |
+| T2                                     | "[]"                                   | ""                                     |
+| T3                                     | T                                      | "Please write down your first guess:" |
+| T4                                     | F                                      | Not contains "Please write down your first guess:" |
+
+
+**Copyright (C) 2023 Princhon - All Rights Reserved * You may use, distribute and modify this code under the terms of the MIT license. **
