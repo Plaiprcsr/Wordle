@@ -437,7 +437,7 @@ File: English.java, Spanish.java
     - `testGetRandomWord()`
 
 2. **Identify parameters, return types, return values, and exceptional behavior:**
-    - **Parameters:** None
+    - **Parameters:** `wordList`
     - **Return type:** String
     - **Return value:** A word randomly selected from `wordList` and returned as a string.
     - **Exceptional behavior:** -
@@ -472,7 +472,7 @@ File: English.java, Spanish.java
     - `testGetRandomWord()`
 
 2. **Identify parameters, return types, return values, and exceptional behavior:**
-    - **Parameters:** None
+    - **Parameters:** `wordList`
     - **Return type:** String
     - **Return value:** A word randomly selected from `wordList` and returned as a string.
     - **Exceptional behavior:** -
@@ -518,10 +518,10 @@ File: English.java, Spanish.java
 
 | Test | wordList                    | Expected result                                                                           |
 |------|-----------------------------|-------------------------------------------------------------------------------------------|
-| (True, 0, False)   | []                          | []                                                                                        |
-| (False, >1, True)  | ["apple", "apple", "cider"] | randomly select and return a word from the wordList (e.g., "apple" or "cider")            |
-| (False, 1, False)  | ["apple"]                   | "apple"                                                                                   |
-| (False, >1, False) | ["apple", "money", "cider"] | randomly select and return a word from the wordList (e.g., "apple" or "money" or "cider") |
+| T1: (True, 0, False)   | []                          | []                                                                                        |
+| T2: (False, >1, True)  | ["apple", "apple", "cider"] | randomly select and return a word from the wordList (e.g., "apple" or "cider")            |
+| T3: (False, 1, False)  | ["apple"]                   | "apple"                                                                                   |
+| T4: (False, >1, False) | ["apple", "money", "cider"] | randomly select and return a word from the wordList (e.g., "apple" or "money" or "cider") |
 
 
 
@@ -916,28 +916,24 @@ If the method encounters an exception during the file reading process, it catche
 
 4. **Model the input domain:**
     - **Develop characteristics:**
-        - `C1`: Number of `greenLetters`
-        - `C2`: Number of `yellowLetters`
-        - `C3`: Number of `greyLetters`
-        - `C4`: `userWord` is not empty
+        - `C1`: `userWord` is not empty
+        - `C2`: Number of `greenLetters`
+        - `C3`: Number of `yellowLetters`
+        - `C4`: Number of `grayLetters`
+        
 
 **Partitioning Characteristics**
 
 | Characteristics             | B1   | B2   | B3   |
 |-----------------------------|------|------|------|
-| C1: number of greenLetters  | 0    | 1    | >1  |
-| C2: number of yellowLetters | 0    | 1    | >1  |
-| C3: number of grayLetters   | 0    | 1    | >1  |
-| C4: userWord is not empty   | True | False|      |
+| C1: userWord is not empty   | True | False|      |
+| C2: number of greenLetters  | 0    | 1    | >1  |
+| C3: number of yellowLetters | 0    | 1    | >1  |
+| C4: number of grayLetters   | 0    | 1    | >1  |
 
 **Identify Values**
 
-| Characteristics             | B1                                                      | B2                                                                                    | B3                                                                                                                      |
-|-----------------------------|---------------------------------------------------------|---------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------|
-| C1: number of greenLetters  | A B C D E F G H I J K L M N O P Q R S T U V W X Y Z  | A B <span style="color:green">C</span> D E F G H I J K L M N O P Q R S T U V W X Y Z  | A B <span style="color:green">C</span> <span style="color:green">D</span> E F G H I J K L M N O P Q R S T U V W X Y Z   |
-| C2: number of yellowLetters | A B C D E F G H I J K L M N O P Q R S T U V W X Y Z  | A B <span style="color:yellow">C</span> D E F G H I J K L M N O P Q R S T U V W X Y Z | A B <span style="color:yellow">C</span> <span style="color:yellow">D</span> E F G H I J K L M N O P Q R S T U V W X Y Z |
-| C3: number of grayLetters   | A B C D E F G H I J K L M N O P Q R S T U V W X Y Z  | A B <span style="color:grey">C</span> D E F G H I J K L M N O P Q R S T U V W X Y Z   | A B <span style="color:grey">C</span> <span style="color:grey">D</span> E F G H I J K L M N O P Q R S T U V W X Y Z     |
-| C4: userWord is not empty   | "apple"                                                | ""                                                                                    |                                                                                                                         |
+![Imgur](https://i.imgur.com/bJS4crB.jpg)
 
 **Combine partitions to define test requirements**
 - Assumption: choose Each choice Coverage
@@ -952,17 +948,13 @@ If the method encounters an exception during the file reading process, it catche
 
 | Characteristics             | B1  | B2  | B3  |
 |-----------------------------|-----|-----|-----|
-| C4 = userWord is not empty  | M   | N   |     |
-| C1 = number of greenLetters | A   | B   | C   |
-| C1 = number of greenLetters | x   | y   | z   |
-| C1 = number of greenLetters | 1   | 2   | 3   |
+| C1 = userWord is not empty  | M   | N   |     |
+| C2 = number of greenLetters | A   | B   | C   |
+| C3 = number of yellowLetters | x   | y   | z   |
+| C4 = number of grayLetters | 1   | 2   | 3   |
 
 
-| Test | userWord | greenLetters                                                                                                          | yellowLetters                                                                                                                                             | greyLetters                                                                         | Expected result                                                                                                                                                                                                                                                                                                                                                                      |
-| ---- | -------- |-----------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| T1   | " "      | A B C D E F G H I J K L M N O P Q R S T U V W X Y Z                                                                   | A B C D E F G H I J K L M N O P Q R S T U V W X Y Z                                                                                                       | A B C D E F G H I J K L M N O P Q R S T U V W X Y Z                                 | The word does not have 5 letters. Please, submit a new 5-letter word.                                                                                                                                                                                                                                                                                                                |
-| T2   | "Cider"  | A B C D E F G H I J K L M N O P Q <span style="color:green">R</span> S T U V W X Y Z                                  | A B <span style="color:yellow">C</span> <span style="color:yellow">D</span> <span style="color:yellow">E</span> F G H I J K L M N O P Q R S T U V W X Y Z | A B C D E F G H <span style="color:grey">I</span> J K L M N O P Q R S T U V W X Y Z | Result: <span style="color:yellow">C</span><span style="color:grey">I</span><span style="color:yellow">D</span><span style="color:yellow">E</span><span style="color:green">R</span> <br> A B <span style="color:yellow">C</span> <span style="color:yellow">D</span> <span style="color:yellow">E</span> F G H I J K L M N O P Q <span style="color:green">R</span> S T U V W X Y Z |
-| T3   | "Apple"  | <span style="color:green">A</span> B C D E F G H I J K <span style="color:green">L</span> M N O P Q R S T U V W X Y Z | A B C D <span style="color:yellow">E</span> F G H I J K L M N O P Q R S T U V W X Y Z                                                                     | A B C D E F G H I J K L M N O <span style="color:grey">P</span> Q R S T U V W X Y Z | Result: <span style="color:green">A</span><span style="color:grey">P</span><span style="color:grey">P</span><span style="color:green">L</span><span style="color:yellow">E</span> <br> <span style="color:green">A</span> B C D <span style="color:yellow">E</span> F G H I J K <span style="color:green">L</span> M N O <span style="color:grey">P</span> Q R S T U V W X Y Z                                       |
+![Imgur](https://i.imgur.com/PoZJHnO.jpg)
 
 
 <h3>ชื่อของ test case: testPrintFirstWordRequest</h3>
